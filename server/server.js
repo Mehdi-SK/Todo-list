@@ -25,13 +25,13 @@ const connectToDatabase = async () => {
 };
 
 connectToDatabase();
-
+// get all todos
 app.get('/todos', async (req, res) => {
     const todoList = await Todo.find();
     res.json(todoList);
 });
 
-
+// create new todo
 app.post('/todo/new', (req, res) => {
     const todo = new Todo({
         text: req.body.text,
@@ -40,6 +40,19 @@ app.post('/todo/new', (req, res) => {
     res.json(todo);
 });
 
+// delete todo
+app.delete('/todo/delete/:id', async (req, res) => {
+    const result = await Todo.findByIdAndDelete(req.params.id);
+    res.json(result);
+});
 
+// update completion state
+app.put('/todo/complete/:id', async (req, res) => {
+    const todoToUpdate = await Todo.findById(req.params.id);
+    todoToUpdate.complete = !todoToUpdate.complete;
+    todoToUpdate.save();
+    res.json(todoToUpdate);
+    
+})
 
 app.listen(3001, ()=>console.log("App started on port 3001"));
