@@ -11,7 +11,6 @@ function App() {
     getTodos();
   }, []);
 
-
   async function getTodos() {
     /**
      * Fetch all todos into a json file, then set them in the state
@@ -25,6 +24,27 @@ function App() {
       console.error(error);
     }
   }
+
+  async function toggleCompletion(id){
+    /**
+     * Toggles completion of clicked task
+     */
+    try{
+      const res = await fetch(API_URL+"/todo/complete/"+id,
+       { method: 'PUT'});
+      const data = await res.json();
+      setTodos(todos.map(todo=>{
+        if(todo._id === data._id){
+          todo.complete = data.complete;
+        }
+        return todo
+      }));
+    }catch(error){
+      console.error(error);
+      alert("An issue occured, please try again later");
+    }
+
+  }
   return (
     <div className="App">
       <h1> Hello, Welcome!</h1>
@@ -32,7 +52,9 @@ function App() {
       <div className="todos">
         {todos.map((todo) => {
           return (
-            <div key={todo._id} className={`todo + ${todo.complete?'is-complete':''}`}>
+            <div key={todo._id} 
+            className={`todo + ${todo.complete?'is-complete':''}`}
+            onClick={()=>toggleCompletion(todo._id)}>
               <div className="checkbox"></div>
 
               <div className="text">{todo.text}</div>
@@ -42,6 +64,12 @@ function App() {
           );
         })}
       </div>
+        <div className="todo add-todo">
+          <div className="add-icon">+</div>
+          <div className="text">
+            Add new task.
+          </div>
+        </div>
     </div>
   );
 }

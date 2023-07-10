@@ -80,3 +80,17 @@ h4{
 .delete-todo:hover{
     color: red;
 }
+.add-icon{
+    width: 20px;
+    height: 20px;
+    margin: 0 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--light-alt);
+    background-color: var(--dark-alt);
+    border-radius: 50%;
+}
+.add-todo .text{
+    color: var(--light-alt);
+}
