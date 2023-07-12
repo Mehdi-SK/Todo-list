@@ -32,12 +32,20 @@ app.get('/todos', async (req, res) => {
 });
 
 // create new todo
-app.post('/todo/new', (req, res) => {
+app.post('/todo/new', async (req, res) => {
+  const text = req.body.text;
+  if (!text || text.trim()===''){
+    return res.status(400).json({error:'Text field is empty.'})
+  }
+  try {
     const todo = new Todo({
-        text: req.body.text,
+        text,
     });
-    todo.save();
-    res.json(todo);
+    const savedTodo = await todo.save();
+    res.json(savedTodo);
+  } catch (error) {
+    res.status(500).json({ error:' An error occured when saving the todo'});
+  }
 });
 
 // delete todo
