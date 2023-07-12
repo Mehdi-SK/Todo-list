@@ -45,6 +45,20 @@ function App() {
     }
 
   }
+
+  async function deleteTodo(id){
+
+    try{
+      const res = await fetch(API_URL+"/todo/delete/"+id, {method:"DELETE"});
+      const deletedTask = await res.json();
+      setTodos(todos.filter(todo=>todo._id !== deletedTask._id));
+      return deletedTask;
+    }catch(error){
+      console.error(error);
+      alert("An error occured when deleting the task. Please try again later.")
+    }
+
+  }
   return (
     <div className="App">
       <h1> Hello, Welcome!</h1>
@@ -53,13 +67,12 @@ function App() {
         {todos.map((todo) => {
           return (
             <div key={todo._id} 
-            className={`todo + ${todo.complete?'is-complete':''}`}
-            onClick={()=>toggleCompletion(todo._id)}>
-              <div className="checkbox"></div>
+            className={`todo + ${todo.complete?'is-complete':''}`}>
+              <div className="checkbox" onClick={()=>toggleCompletion(todo._id)}></div>
 
               <div className="text">{todo.text}</div>
 
-              <div className="delete-todo">x</div>
+              <div className="delete-todo" onClick={()=> deleteTodo(todo._id)}>x</div>
             </div>
           );
         })}

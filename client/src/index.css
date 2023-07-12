@@ -74,7 +74,8 @@ h4{
     position: absolute;
     right: 10px;
     width: 20px;
-    aspect-ratio: 1;
+    height: 20px;
+    z-index: 100;
 }
 
 .delete-todo:hover{
