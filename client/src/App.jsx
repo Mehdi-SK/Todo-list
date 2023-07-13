@@ -64,21 +64,29 @@ function App() {
   }
 
   async function addTodo(){
-    const res = await fetch(API_URL+"/todo/new", {
-      method: "POST",
-      headers:{
-        "Content-Type":'application/json'
-      },
-      body: JSON.stringify({
-        "text": newTask
-      })
-    });
-    const data = await res.json();
+    try {
+      if(newTask !== ''){
+        const res = await fetch(API_URL+"/todo/new", {
+          method: "POST",
+          headers:{
+            "Content-Type":'application/json'
+          },
+          body: JSON.stringify({
+            "text": newTask
+          })
+        });
+        const data = await res.json();
+        setTodos([...todos, data]);
+    
+        setPopupActive(false);
+        setNewTask("");
+      }else{
+        alert("Task field cannot be empty")
+      }
+    } catch (error) {
+      console.error(error);
+    }
 
-    setTodos([...todos, data]);
-
-    setPopupActive(false);
-    setNewTask("");
   }
 
   return (
@@ -116,7 +124,7 @@ function App() {
             X
           </div>
           <div className="content">
-            <h3>Task infos.</h3>
+            <h3>Add todo:</h3>
             <input
               type="text"
               className="new-task-input"

@@ -95,3 +95,56 @@ h4{
 .add-todo .text{
     color: var(--light-alt);
 }
+.add-task-popup{
+    background-color: var(--dark);
+    border-radius: 25px;
+    height: auto;
+    position: relative;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+
+}
+.close-popup{
+
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    cursor: pointer;
+}
+.close-popup:hover{
+    color: #D81E5B;
+}
+.add-task-popup .content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.new-task-input{
+    background-color: var(--dark-alt);
+    border: none;
+    border-radius: 25px;
+    font-size: large;
+    color: var(--light);
+    padding: 5px 10px;
+    margin: 5px 0;
+}
+
+.create-task-button{
+    background-color: var(--dark-alt);
+    width: 80%;
+    margin-left: 10%;
+    border: none;
+    border-radius: 25px;
+    color: var(--light);
+    font-size: larger;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: background 200ms ease-in;
+}
+.create-task-button:hover{
+    background-color: var(--light-alt);
+}
